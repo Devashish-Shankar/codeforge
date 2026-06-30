@@ -207,6 +207,9 @@ importers:
 
   .:
     devDependencies:
+      prettier:
+        specifier: ^3.9.1
+        version: 3.9.1
       turbo:
         specifier: ^2.10.0
         version: 2.10.0
@@ -246,6 +249,11 @@ packages:
     cpu: [arm64]
     os: [win32]
 
+  prettier@3.9.1:
+    resolution: {integrity: sha512-ppiDo2CSwexck1eyZUwJHg/N3nf1+6IRCv7W/VJ5vaLnVCmB7+3CdRfMwoCHBBX6xTrREDTksZ4OZl5SSf4zXA==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   turbo@2.10.0:
     resolution: {integrity: sha512-o016H9PPtuH2deb3mh3Vci3Avfi9UYgM/RONQisY7HnloupP0IFSbFS3gFYJgFJP8nwBrByHWFQIDa8T2zIXPw==}
     hasBin: true
@@ -274,6 +282,8 @@ snapshots:
 
   '@turbo/windows-arm64@2.10.0':
     optional: true
+
+  prettier@3.9.1: {}
 
   turbo@2.10.0:
     optionalDependencies:
