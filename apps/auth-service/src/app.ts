@@ -1,15 +1,29 @@
-import Fastify from "fastify";
+import express from "express";
+import helmet from "helmet";
 
-export function buildApp() {
-  const app = Fastify({
-    logger: true,
-  });
+import healthRouter from "./health/health.route.js";
+import authRouter from "./routes/auth.route.js";
 
-  app.get("/", async () => {
-    return {
-      message: "🚀 Welcome to CodeForge Auth Service",
-    };
-  });
+const app = express();
 
-  return app;
-}
+/**
+ * Security Middleware
+ */
+app.use(helmet());
+
+/**
+ * Body Parser
+ */
+app.use(express.json());
+
+/**
+ * Health Routes
+ */
+app.use("/health", healthRouter);
+
+/**
+ * Authentication Routes
+ */
+app.use("/auth", authRouter);
+
+export default app;

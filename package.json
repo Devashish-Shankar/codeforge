@@ -1,10 +1,17 @@
 {
   "name": "codeforge",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "Root Package for CodeForge Monorepo",
+  "packageManager": "pnpm@11.9.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean"
   },
   "keywords": [],
   "author": "",
