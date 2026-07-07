@@ -4,6 +4,8 @@ import { ENV } from "../constants/env.js";
 
 export interface JwtPayload {
   userId: string;
+  username: string;
+  email: string;
 }
 
 export function generateAccessToken(payload: JwtPayload): string {

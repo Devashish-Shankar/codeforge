@@ -33,3 +33,54 @@ export async function createUser(data: {
     data,
   });
 }
+
+export async function saveRefreshToken(data: {
+  token: string;
+  userId: string;
+  expiresAt: Date;
+}) {
+  return prisma.refreshToken.create({
+    data,
+  });
+}
+
+export async function findRefreshToken(token: string) {
+  return prisma.refreshToken.findUnique({
+    where: {
+      token,
+    },
+    include: {
+      user: true,
+    },
+  });
+}
+
+export async function revokeRefreshToken(token: string) {
+  return prisma.refreshToken.update({
+    where: {
+      token,
+    },
+    data: {
+      revoked: true,
+    },
+  });
+}
+
+export async function deleteUserRefreshTokens(userId: string) {
+  return prisma.refreshToken.deleteMany({
+    where: {
+      userId,
+    },
+  });
+}
+
+export async function revokeRefreshTokenById(id: string) {
+  return prisma.refreshToken.update({
+    where: {
+      id,
+    },
+    data: {
+      revoked: true,
+    },
+  });
+}

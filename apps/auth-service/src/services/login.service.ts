@@ -4,8 +4,10 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../utils/jwt.js";
-
+import { getRefreshTokenExpiry } from "../utils/date.js";
 import type { LoginDto } from "../validators/login.validator.js";
+import {saveRefreshToken} from "../repositories/user.repository.js";
+import {ENV} from "../constants/env.js";
 
 export async function loginService(data: LoginDto) {
   // Find user
@@ -28,10 +30,22 @@ export async function loginService(data: LoginDto) {
   // Generate Tokens
   const accessToken = generateAccessToken({
     userId: user.id,
+    username: user.username,
+    email: user.email,
   });
 
   const refreshToken = generateRefreshToken({
     userId: user.id,
+    username: user.username,
+    email: user.email,
+  });
+
+  const expiresAt = getRefreshTokenExpiry();
+  
+  await saveRefreshToken({
+    token: refreshToken,
+    userId: user.id,
+    expiresAt,
   });
 
   return {
