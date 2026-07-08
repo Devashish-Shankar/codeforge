@@ -84,3 +84,37 @@ export async function revokeRefreshTokenById(id: string) {
     },
   });
 }
+
+export async function saveEmailVerificationToken(data: {
+  token: string;
+  userId: string;
+  expiresAt: Date;
+}) {
+  return prisma.emailVerificationToken.create({
+    data,
+  });
+}
+
+export async function findEmailVerificationToken(
+  token: string
+) {
+  return prisma.emailVerificationToken.findUnique({
+    where: {
+      token,
+    },
+    include: {
+      user: true,
+    },
+  });
+}
+
+export async function verifyUserEmail(userId: string) {
+  return prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      isVerified: true,
+    },
+  });
+}

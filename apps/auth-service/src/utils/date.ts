@@ -26,3 +26,30 @@ export function getRefreshTokenExpiry(): Date {
     `Unsupported refresh token expiry: ${value}`
   );
 }
+
+/**
+ * Returns email verification expiry date
+ * based on EMAIL_VERIFICATION_EXPIRES_IN
+ *
+ * Supported:
+ * 24h
+ * 48h
+ * 72h
+ */
+export function getEmailVerificationExpiry(): Date {
+  const expiresAt = new Date();
+
+  const value = ENV.EMAIL_VERIFICATION_EXPIRES_IN;
+
+  if (value.endsWith("h")) {
+    const hours = Number(value.slice(0, -1));
+
+    expiresAt.setHours(expiresAt.getHours() + hours);
+
+    return expiresAt;
+  }
+
+  throw new Error(
+    `Unsupported email verification expiry: ${value}`
+  );
+}

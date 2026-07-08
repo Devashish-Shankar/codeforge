@@ -10,15 +10,16 @@ export async function registerController(
   try {
     const data = registerSchema.parse(req.body);
 
-    const user = await registerService(data);
+    const result = await registerService(data);
 
     return res.status(201).json({
       success: true,
       message: "User registered successfully",
       data: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
+        id: result.user.id,
+        username: result.user.username,
+        email: result.user.email,
+        verificationLink: result.verificationLink,
       },
     });
   } catch (error) {

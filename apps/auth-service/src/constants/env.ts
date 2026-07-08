@@ -14,6 +14,10 @@ const envSchema = z.object({
   REFRESH_TOKEN_SECRET: z.string().min(1),
 
   REFRESH_TOKEN_EXPIRES_IN: z.string().default("7d"),
+
+  EMAIL_VERIFICATION_SECRET: z.string().min(1),
+
+  EMAIL_VERIFICATION_EXPIRES_IN: z.string().default("24h"),
 });
 
 export const ENV = envSchema.parse(process.env);

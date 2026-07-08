@@ -21,6 +21,7 @@ model User {
   isVerified Boolean  @default(false)
 
   refreshTokens RefreshToken[]
+  emailVerificationTokens EmailVerificationToken[]
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -32,6 +33,17 @@ model RefreshToken {
   userId    String
   expiresAt DateTime
   revoked   Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
