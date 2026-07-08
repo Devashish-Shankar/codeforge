@@ -118,3 +118,40 @@ export async function verifyUserEmail(userId: string) {
     },
   });
 }
+
+export async function savePasswordResetToken(data: {
+  token: string;
+  userId: string;
+  expiresAt: Date;
+}) {
+  return prisma.passwordResetToken.create({
+    data,
+  });
+}
+
+export async function findPasswordResetToken(
+  token: string
+) {
+  return prisma.passwordResetToken.findUnique({
+    where: {
+      token,
+    },
+    include: {
+      user: true,
+    },
+  });
+}
+
+export async function updateUserPassword(
+  userId: string,
+  password: string
+) {
+  return prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      password,
+    },
+  });
+}

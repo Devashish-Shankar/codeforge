@@ -18,6 +18,10 @@ const envSchema = z.object({
   EMAIL_VERIFICATION_SECRET: z.string().min(1),
 
   EMAIL_VERIFICATION_EXPIRES_IN: z.string().default("24h"),
+
+  PASSWORD_RESET_SECRET: z.string().min(1),
+
+  PASSWORD_RESET_EXPIRES_IN: z.string().default("15m"),
 });
 
 export const ENV = envSchema.parse(process.env);

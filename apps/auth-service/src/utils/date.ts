@@ -53,3 +53,32 @@ export function getEmailVerificationExpiry(): Date {
     `Unsupported email verification expiry: ${value}`
   );
 }
+
+/**
+ * Returns password reset expiry date
+ * based on PASSWORD_RESET_EXPIRES_IN
+ *
+ * Supported:
+ * 15m
+ * 30m
+ * 60m
+ */
+export function getPasswordResetExpiry(): Date {
+  const expiresAt = new Date();
+
+  const value = ENV.PASSWORD_RESET_EXPIRES_IN;
+
+  if (value.endsWith("m")) {
+    const minutes = Number(value.slice(0, -1));
+
+    expiresAt.setMinutes(
+      expiresAt.getMinutes() + minutes
+    );
+
+    return expiresAt;
+  }
+
+  throw new Error(
+    `Unsupported password reset expiry: ${value}`
+  );
+}

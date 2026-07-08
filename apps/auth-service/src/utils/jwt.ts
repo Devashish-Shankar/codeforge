@@ -13,6 +13,11 @@ export interface EmailVerificationPayload {
   email: string;
 }
 
+export interface PasswordResetPayload {
+  userId: string;
+  email: string;
+}
+
 export function generateAccessToken(payload: JwtPayload): string {
   const options: SignOptions = {
     expiresIn: ENV.JWT_EXPIRES_IN as SignOptions["expiresIn"],
@@ -42,6 +47,21 @@ export function generateEmailVerificationToken(
   );
 }
 
+export function generatePasswordResetToken(
+  payload: PasswordResetPayload
+): string {
+  const options: SignOptions = {
+    expiresIn:
+      ENV.PASSWORD_RESET_EXPIRES_IN as SignOptions["expiresIn"],
+  };
+
+  return jwt.sign(
+    payload,
+    ENV.PASSWORD_RESET_SECRET,
+    options
+  );
+}
+
 export function verifyAccessToken(token: string): JwtPayload {
   return jwt.verify(token, ENV.JWT_SECRET) as JwtPayload;
 }
@@ -60,4 +80,13 @@ export function verifyEmailVerificationToken(
     token,
     ENV.EMAIL_VERIFICATION_SECRET
   ) as EmailVerificationPayload;
+}
+
+export function verifyPasswordResetToken(
+  token: string
+): PasswordResetPayload {
+  return jwt.verify(
+    token,
+    ENV.PASSWORD_RESET_SECRET
+  ) as PasswordResetPayload;
 }
