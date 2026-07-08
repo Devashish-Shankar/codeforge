@@ -155,3 +155,13 @@ export async function updateUserPassword(
     },
   });
 }
+
+export async function deletePasswordResetToken(
+  token: string
+) {
+  return prisma.passwordResetToken.delete({
+    where: {
+      token,
+    },
+  });
+}

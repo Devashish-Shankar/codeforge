@@ -6,6 +6,7 @@ import logoutRouter from "./logout.route.js";
 import refreshTokenRouter from "./refresh-token.route.js";
 import emailVerificationRouter from "./email-verification.route.js";
 import forgotPasswordRouter from "./forgot-password.route.js";
+import resetPasswordRouter from "./reset-password.route.js";
 const router = Router();
 /**
  * Register Routes
@@ -35,4 +36,8 @@ router.use(emailVerificationRouter);
  * Forgot Password Routes
  */
 router.use(forgotPasswordRouter);
+/**
+ * Reset Password Routes
+ */
+router.use(resetPasswordRouter);
 export default router;
