@@ -7,14 +7,27 @@ export async function forgotPasswordController(
   req: Request,
   res: Response
 ) {
-  const data = forgotPasswordSchema.parse(req.body);
+  try {
+    // Validate Request
+    const data = forgotPasswordSchema.parse(req.body);
 
-  const result = await forgotPasswordService(
-    data.email
-  );
+    // Call Service
+    const result = await forgotPasswordService(data.email);
 
-  return res.status(200).json({
-    success: true,
-    data: result,
-  });
+    // Success Response
+    return res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(400).json({
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Something went wrong",
+    });
+  }
 }
