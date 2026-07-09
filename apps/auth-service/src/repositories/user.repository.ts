@@ -119,6 +119,16 @@ export async function verifyUserEmail(userId: string) {
   });
 }
 
+export async function deleteEmailVerificationToken(
+  token: string
+) {
+  return prisma.emailVerificationToken.delete({
+    where: {
+      token,
+    },
+  });
+}
+
 export async function savePasswordResetToken(data: {
   token: string;
   userId: string;

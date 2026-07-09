@@ -1,6 +1,7 @@
 import {
   findEmailVerificationToken,
   verifyUserEmail,
+  deleteEmailVerificationToken,
 } from "../repositories/user.repository.js";
 
 import { verifyEmailVerificationToken } from "../utils/jwt.js";
@@ -31,6 +32,8 @@ export async function emailVerificationService(
 
   // Verify email
   await verifyUserEmail(payload.userId);
+
+  await deleteEmailVerificationToken(token);
 
   return {
     message: "Email verified successfully",
