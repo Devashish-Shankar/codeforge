@@ -4,6 +4,8 @@ import { verifyAccessToken } from "../utils/jwt.js";
 export interface AuthRequest extends Request {
   user?: {
     userId: string;
+    username: string;
+    email: string;
   };
 }
 
@@ -29,7 +31,11 @@ export function authMiddleware(
     req.user = payload;
 
     next();
-  } catch {
+  } catch (error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.error(error);
+    }
+
     return res.status(401).json({
       success: false,
       message: "Invalid or expired token",
